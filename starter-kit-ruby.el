@@ -81,10 +81,7 @@ exec-to-string command, but it works and seems fast"
                  (when (and buffer-file-name
                             (file-writable-p
                              (file-name-directory buffer-file-name))
-                            (file-writable-p buffer-file-name)
-                            (not (subsetp
-                                  (list (current-buffer))
-                                  (tramp-list-remote-buffers))))
+                            (file-writable-p buffer-file-name))
                    (local-set-key (kbd "C-c d")
                                   'flymake-display-err-menu-for-current-line)
                    (flymake-mode t))))))
@@ -96,6 +93,10 @@ exec-to-string command, but it works and seems fast"
 
 ;; TODO: set up ri
 ;; TODO: electric
+(add-to-list 'load-path "vendor/")
+(add-hook 'ruby-mode-hook
+          (lambda ()
+            (require 'ruby-electric)))
 
 (provide 'starter-kit-ruby)
 ;; starter-kit-ruby.el ends here
